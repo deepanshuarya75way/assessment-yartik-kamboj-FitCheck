@@ -136,4 +136,26 @@ const deleteAnalysis = async (req, res) => {
   }
 };
 
-export { newAnalysis, deleteAnalysis };
+
+const editResume = async(req, res) =>{
+  const { userId, updatedResumeText } = req.body;
+  try {
+    const user = await User.findById(userId);
+
+    // 1. Resolve the resume source (saved or uploaded)
+    const resume = await resolveResume(req, user, true);
+
+    // 2. Extract text from the PDF
+    const resumeText = await extractText(resume.pdfBuffer);
+
+    //3. change resume content
+    
+
+  } catch (error) {
+    console.error("Edit Resume Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+
+export { newAnalysis, deleteAnalysis, editResume };

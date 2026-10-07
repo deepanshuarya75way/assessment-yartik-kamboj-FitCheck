@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import {
   deleteAnalysis,
+  editResume,
   newAnalysis,
 } from "../controllers/RezerAnalysis-controller.js";
 import { getAllAnalysisOfUser, getRezerAnalysisDetailsById, getTarobAnalysisDetailsById, viewResume } from "../controllers/User-controller.js";
@@ -17,6 +18,7 @@ router .route("/rezer/newAnalysis") .post(authMiddleware, upload.single("resume"
 router.route("/rezer/deleteAnalysis").delete(authMiddleware, deleteAnalysis);
 //saved resume routes
 router.route("/savedResume/view").get(authMiddleware, viewResume);
+router.route("/editResume").get(authMiddleware, editResume);
 //tarobPrep routes
 router .route("/tarobPrep/newAnalysis") .post(authMiddleware, upload.single("resume"), newTarobAnalysis);
 router.route("/tarobPrep/deleteAnalysis").post(authMiddleware, deleteTarobAnalysis);

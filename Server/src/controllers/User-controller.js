@@ -123,6 +123,7 @@ const logout = (req, res) => {
   }
 };
 
+//useres can view the current saved resume in their settings section
 const viewResume = async (req, res) => {
   try {
     const user = req.user;

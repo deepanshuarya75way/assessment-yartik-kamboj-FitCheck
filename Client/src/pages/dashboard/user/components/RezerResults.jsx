@@ -9,6 +9,7 @@ import {
   pasteIcon,
   chevronDownIcon,
 } from "../../../../utils/Icons";
+import EditResume from "./EditResume";
 
 const Icons = {
   FileReady: ({ className }) => (
@@ -141,6 +142,8 @@ export default function RezerResults({
   const [showAllMissing, setShowAllMissing] = useState(false);
   const [showJd, setShowJd] = useState(false);
   const [jdCopied, setJdCopied] = useState(false);
+  const [editResumeView, seteditResumeView] = useState(false);
+  const [currentResumeData, setCurrentResData] = useState([]);
 
   // Safely extract the inner analysis data
   const resultData = record?.analysisResult || {};
@@ -155,6 +158,13 @@ export default function RezerResults({
       setTimeout(() => setJdCopied(false), 2000);
     }
   };
+
+  const handleEditResume = async (req, res) =>{
+    //1. get data from the current saved resume 
+
+    //2. set view
+    seteditResumeView(true);
+  }
 
   return (
     <div
@@ -377,25 +387,36 @@ export default function RezerResults({
         </div>
       </div>
 
-      {/* The Bridge (Tarob CTA) */}
-      {/* <div className="mt-16 pt-12 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div>
-          <p className="text-sm font-medium text-text-main mb-1">
-            Bridge the gap with TarobPrep.
-          </p>
-          <p className="text-xs text-text-muted">
-            Generate a structured curriculum to master your missing
-            requirements.
-          </p>
-        </div>
-        <Link
-          to="/dashboard/tarob"
-          className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-surface border border-border text-text-main font-medium text-sm hover:border-emerald-500 hover:text-emerald-500 transition-colors flex items-center justify-center gap-3 shadow-sm group"
+      <div className="editYourResume">
+        <button className="flex text-lg cursor-pointer"
+          onClick={handleEditResume}
         >
-          Initialize Preparation
-          <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </Link>
-      </div> */}
+          <svg xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+          className=""
+          >
+            <path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34" />
+            <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+            <path d="M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z" />
+          </svg>
+          Edit your current resume
+        </button>
+      </div>
+
+      {
+        editResumeView && (
+          <div className="max-w-screen max-h-screen w-full h-full">
+            <EditResume currentResumeData={currentResumeData} setCurrentResData={setCurrentResData} />
+          </div>
+        )
+      }
     </div>
   );
 }
